@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { getRandomUsername, getRandomEmail } = require('./data');
+const { getRandomUsername, getRandomEmail, getRandomThoughts, getRandomArrItem } = require('./data');
 
 connection.on('error', (err) => err);
 
@@ -19,16 +19,50 @@ const thoughts =[];
 console.log(users)
 
 for (let i = 0; i < 25; i++) {
-    const username = getRandomUsername();
-    const email = getRandomEmail();
-
+    let username = getRandomUsername();
+    let usernameExists = users.find(user => {
+        if (user.username == username){return true}
+        return false
+    })
+    while (usernameExists) {
+        username = getRandomUsername();
+        usernameExists = users.find(user => {
+            if (user.username == username){return true}
+            return false
+        })
+    }
+    let email = getRandomEmail();
+    let emailExists = users.find(user => {
+        if (user.email == email){return true}
+        return false
+    })
+    while (emailExists) {
+        email = getRandomEmail();
+        emailExists = users.find(user => {
+            if (user.email == email){return true}
+            return false
+        })
+    }
     users.push({
       username,
       email,
     });
   }
   await User.collection.insertMany(users);
-  await Thought.collection.insertMany(thoughts);
+
+
+  for (let i = 0; i < 27; i++) {
+    let thoughtItem = getRandomThoughts()
+    let user = getRandomArrItem(users)
+    thoughts.push({
+        username: user.username,
+        thoughtText: thoughtItem
+    })
+    }
+
+    await Thought.collection.insertMany(thoughts);
+
+//update instead of insertmany
 
   console.table(users);
   console.table(thoughts);
@@ -36,3 +70,4 @@ for (let i = 0; i < 25; i++) {
   process.exit(0);
 
 });
+

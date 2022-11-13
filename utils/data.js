@@ -104,11 +104,13 @@ const getRandomUsername = () =>
 const getRandomEmail = () =>
 `${getRandomArrItem(email)}`;
 
-
+// Gets a random thoughts
+const getRandomThoughts = () =>
+  `${getRandomArrItem(thoughtText)}`;
 
 
 
 console.log(getRandomUsername)
 console.log('hello')
 
-module.exports = { getRandomUsername, getRandomEmail };
+module.exports = { getRandomUsername, getRandomEmail, getRandomArrItem, getRandomThoughts };
