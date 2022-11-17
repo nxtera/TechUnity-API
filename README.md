@@ -44,7 +44,7 @@ Use Insomnia to access the routes that are available.
 
 Gif of live application 
 
-![me](https://github.com/nxtera/TechUnity-api/blob/main/public/images/TechUnity-api.gif)
+![me](https://github.com/nxtera/TechUnity-API/blob/main/public/images/TechUnity-API.gif)
 
 
 ## Credits
