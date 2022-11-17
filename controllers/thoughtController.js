@@ -109,7 +109,7 @@ module.exports = {
       .then((reaction) =>
         !reaction
           ? res.status(404).json({ message: "No reaction with this id!" })
-          : res.json(reaction)
+          : res.json({ message: "Reaction deleted!" })
       )
       .catch((err) => res.status(500).json(err));
   },

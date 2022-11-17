@@ -1,37 +1,35 @@
-const { Schema, model } = require("mongoose");
-const moment =  require('moment');
-
+const { Schema, model, Types } = require("mongoose");
+const moment = require("moment");
 
 // Reaction Schema
-const reactionSchema = new Schema (
-    {
-       reactionId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
-       },
-       reactionBody: {
-        type: String,
-        required: true,
-        max_length: 280
-       },
-       username: {
-        type: String,
-        required: true,
-       },
-       createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => moment(timestamp).format('DD MMM YYYY [at] HH:mm'),
-       },
+const reactionSchema = new Schema(
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
     },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true
-        },
-        id: false,
-    }
-)
+    reactionBody: {
+      type: String,
+      required: true,
+      max_length: 280,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => moment(timestamp).format("DD MMM YYYY [at] HH:mm"),
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
 
 // Thought Schema
 const thoughtSchema = new Schema(
@@ -45,7 +43,7 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (timestamp) => moment(timestamp).format('DD MMM YYYY [at] HH:mm'),
+      get: (timestamp) => moment(timestamp).format("DD MMM YYYY [at] HH:mm"),
     },
     username: {
       type: String,
@@ -56,7 +54,7 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
-      getters: true
+      getters: true,
     },
     id: false,
   }
@@ -64,12 +62,10 @@ const thoughtSchema = new Schema(
 
 // Create a virtual called reactionCount that retrieves the length of the thought's
 // reactions array field on query.
-thoughtSchema.virtual("reactionCount").get(function() {
-    return this.reactions.length;
+thoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
 });
 
 const Thought = model("thought", thoughtSchema);
 
 module.exports = Thought;
-
-

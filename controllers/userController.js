@@ -48,10 +48,10 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-      .then((course) =>
-        !course
+      .then((user) =>
+        !user
           ? res.status(404).json({ message: "No user with this id!" })
-          : res.json(course)
+          : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -66,8 +66,7 @@ module.exports = {
       .then((friend) =>
         !friend
           ? res.status(404).json({ message: "No user with this id!" })
-          : res.json({ message: `${friend.username} added as friend!`})
-
+          : res.json({ message: `${friend.username} added as friend!` })
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -76,16 +75,14 @@ module.exports = {
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.friendId },
-      { $pull: { friends: req.params.friendId }  },
+      { $pull: { friends: req.params.friendId } },
       { runValidators: true, new: true }
     )
       .then((friend) =>
         !friend
           ? res.status(404).json({ message: "No friend with this id!" })
-          : res.json({ message: `${friend.username} removed as friend!`})
+          : res.json({ message: `${friend.username} removed as friend!` })
       )
       .catch((err) => res.status(500).json(err));
   },
-
 };
-
